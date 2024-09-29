@@ -11,49 +11,107 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'arcticicestudio/nord-vim'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
+Plug 'StanAngeloff/php.vim'
+Plug 'dense-analysis/ale'
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'Chiel92/vim-autoformat'
+
 
 call plug#end()
 
 
+"Vim-Script:
+let g:calvera_italic_comments = 1
+let g:calvera_italic_keywords = 1
+let g:calvera_italic_functions = 1
+let g:calvera_contrast = 1
+let NERDTreeShowHidden=1
 
+
+" Python: usa o Black como formatador
+let g:formatprg_python = 'black -q -'
+
+" JavaScript e TypeScript: usa o Prettier
+let g:formatprg_javascript = 'prettier --stdin-filepath %'
+let g:formatprg_typescript = 'prettier --stdin-filepath %'
+
+" React (JavaScript e JSX): também usa o Prettier
+let g:formatprg_javascriptreact = 'prettier --stdin-filepath %'
+let g:formatprg_typescriptreact = 'prettier --stdin-filepath %'
+
+" Styled-Components: também pode usar o Prettier
+let g:formatprg_css = 'prettier --stdin-filepath %'
+
+" Tailwind CSS: formatação via Prettier (se configurado no projeto)
+let g:formatprg_tailwindcss = 'prettier --stdin-filepath %'
+
+
+
+
+" Confirma a seleção se houver ou apenas quebra a linha se não houver
+function! EnterSelect()
+    " Se o popup estiver visível e nenhuma opção estiver selecionada
+    if pumvisible() && complete_info()["selected"] == -1
+        return "\<C-y>\<CR>"
+
+    " Se o popup estiver visível e uma opção estiver selecionada
+    elseif pumvisible()
+        return coc#_select_confirm()
+
+    " Se o popup não estiver visível
+    else
+        return "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+    endif
+endfunction
+
+" Faz <CR> confirmar a seleção se houver ou apenas quebrar a linha se não houver
+inoremap <silent><expr> <cr> EnterSelect()
+
+"===============================
 
 filetype plugin indent on
 
 syntax enable
 set number
 set mouse=a
-" set relativenumber
+"set relativenumber
 set background=dark
 set autoindent
 set showbreak=+++
 set linebreak
-set textwidth=100
+set textwidth=200
 
-"=========thema==================
 
-" satando thema
-"syntax enable
-"set background=dark
-"colorscheme solarized
+" Usar o tema gruvbox com configurações harmoniosas
+colorscheme gruvbox
 
+" Ativar cores suaves no gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection = '0'
+
+
+
+" Definir a cor da barra de status
 let g:airline_theme='bubblegum'
 
 
+" Melhorar contraste visual e evitar ofuscação
+set termguicolors
+highlight Normal ctermbg=none
 
-"setando tema
-
-"colorscheme gruvbox
-"let g:indent_guides_enable_on_vim_startup = 1
-"let g:indent_guides_auto_colors = 1
-"autocmd VimEnter,Colorscheme gruvbox :hi IndentGuidesOdd  guibg=green   ctermbg=1
-"autocmd VimEnter,Colorscheme gruvbox :hi IndentGuidesEven guibg=yellow ctermbg=1
-
-
-"setando thema
-colorscheme nord
+" Ajuste adicional para harmonizar cores de código
+hi Comment ctermfg=grey
+hi String ctermfg=green
+hi Keyword ctermfg=lightblue
 
 
-"================================
+
+
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 1
+autocmd VimEnter,Colorscheme gruvbox :hi IndentGuidesOdd  guibg=green   ctermbg=1
+autocmd VimEnter,Colorscheme gruvbox :hi IndentGuidesEven guibg=yellow ctermbg=1
 
 "desativando teclas de navegação no modo visual
 noremap <Up> <NOP>
