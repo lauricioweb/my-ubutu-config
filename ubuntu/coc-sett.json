@@ -1,0 +1,23 @@
+{
+  "suggest.enablePreselect": true,
+  "suggest.noselect": true,
+  "languageserver": {
+    "typescript": {
+      "command": "typescript-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["typescript", "typescriptreact"],
+      "initializationOptions": {
+        "hostInfo": "neovim"
+      }
+    },
+    "javascript": {
+      "command": "typescript-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["javascript", "javascriptreact"]
+    }
+  },
+  "python.pythonPath": "/caminho/para/seu/python",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black"
+}
