@@ -21,3 +21,19 @@ cmake \
   -G Ninja \
   ..
 ninja aseprite
+
+
+para aparecer no menu use:
+
+nano ~/.local/share/applications/aseprite.desktop
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Aseprite
+Comment=Pixel art tool
+Exec=/home/lau/Documentos/aseprite/aseprite/build/bin/aseprite
+Icon=/home/lau/Documentos/aseprite/aseprite/build/bin/data/icons/ase256.png
+Terminal=false
+Categories=Graphics;2DGraphics;RasterGraphics;
+StartupNotify=true
